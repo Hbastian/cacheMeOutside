@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library-System</title>
+    <link rel="stylesheet" href="style.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header id="top-header">
+        <h1>Library System</h1>
+    </header>
+
+    <div id="book-total">
+        <p id="book-count">N/A</p>
+        <span id="book-label">Books in Library</span>
+    </div>
+
+    <!--Container To Hold All Books @ Top of Page-->
+    <div id="all-books">
+    </div>
+
+
+    <!--Container To Add Books-->
+    <h2 style="color: white;"> <strong>+</strong> A Book</h2>
+    <div id="add-books">
+        <div class="field">
+            <label for="title">Title</label>
+            <input id="title-input" type="text" placeholder="Enter title">
+        </div>
+
+        <div class="field">
+            <label for="author">Author</label>
+            <input id="author-input" type="text" placeholder="Enter author">
+        </div>
+
+        <div class="field full">
+            <label for="genre">Genre</label>
+            <input id="genre-input" type="text" placeholder="e.g. Fantasy, Sci-Fi">
+        </div>
+
+        <div class="field full">
+            <label for="description">Description</label>
+            <textarea id="description-area" placeholder="Write a short description..."></textarea>
+        </div>
+
+        <!-- Add button -->
+        <button id="add-btn">Add</button>
+    </div>
+
+    <h2 style="color: white;">🔍 Search For A book</h2>
+    <div id="search-books">
+        <div class=" field">
+            <label for="search-title">Title</label>
+            <input id="search-title" type="text" placeholder="Search by title">
+        </div>
+
+        <div class="field">
+            <label for="search-author">Author</label>
+            <input id="search-author" type="text" placeholder="Search by author">
+        </div>
+
+        <div class="field full">
+            <label for="search-genre">Genre</label>
+            <input id="search-genre" type="text" placeholder="Search by genre">
+        </div>
+
+        <button id="search-btn">Search</button>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
