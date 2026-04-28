@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit();
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -17,6 +25,8 @@
     <header id="top-header">
         <h1>CSCI 4410 Library System</h1>
     </header>
+    
+    <a href="logout.php">Logout</a>
 
     <div id="book-total">
         <p id="book-count">0</p>

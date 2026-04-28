@@ -20,6 +20,8 @@ function resetStarRating(hiddenInputId, ratingContainerId) {
 }
 
 function createBookCard({ title, author, isbn, genre, description, rating }) {
+    rating = Number(rating);
+
     const filledStars = "★".repeat(rating);
     const emptyStars = "☆".repeat(5 - rating);
 
@@ -41,6 +43,21 @@ function createBookCard({ title, author, isbn, genre, description, rating }) {
     updateBookCount();
 }
 
+function loadBooksFromDatabase() {
+    fetch("getBooks.php")
+        .then((res) => res.json())
+        .then((books) => {
+            allBooks.innerHTML = "";
+
+            books.forEach((book) => {
+                createBookCard(book);
+            });
+
+            updateBookCount();
+        })
+        .catch((err) => console.log(err));
+}
+
 // Manual Add
 manualAddBtn.addEventListener("click", () => {
     const title = document.getElementById("title-input").value.trim();
@@ -60,51 +77,42 @@ manualAddBtn.addEventListener("click", () => {
         return;
     }
 
-    createBookCard({
-        title,
-        author,
-        isbn,
-        genre,
-        description,
-        rating
-    });
+    fetch("addBook.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            title,
+            author,
+            isbn,
+            genre,
+            description,
+            rating
+        })
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.success) {
+                document.getElementById("title-input").value = "";
+                document.getElementById("author-input").value = "";
+                document.getElementById("manual-isbn-input").value = "";
+                document.getElementById("genre-input").value = "";
+                document.getElementById("description-area").value = "";
 
-    document.getElementById("title-input").value = "";
-    document.getElementById("author-input").value = "";
-    document.getElementById("manual-isbn-input").value = "";
-    document.getElementById("genre-input").value = "";
-    document.getElementById("description-area").value = "";
+                resetStarRating("rating-value", "rating-input");
 
-    resetStarRating("rating-value", "rating-input");
+                loadBooksFromDatabase();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch((err) => console.log(err));
 });
 
-// Quick Add
+// Quick Add placeholder
 quickAddBtn.addEventListener("click", () => {
-    const isbn = document.getElementById("quick-isbn-input").value.trim();
-    const rating = parseInt(document.getElementById("rating-value-ISBN").value, 10);
-
-    if (!isbn) {
-        alert("Please enter an ISBN.");
-        return;
-    }
-
-    if (rating === 0) {
-        alert("Please select a star rating.");
-        return;
-    }
-
-    // Placeholder quick-add behavior since no API/book lookup logic exists yet
-    createBookCard({
-        title: "Quick Added Book",
-        author: "Unknown Author",
-        isbn,
-        genre: "Unknown Genre",
-        description: "Added using Quick Add. Replace this with real ISBN lookup logic if needed.",
-        rating
-    });
-
-    document.getElementById("quick-isbn-input").value = "";
-    resetStarRating("rating-value-ISBN", "rating-input-ISBN");
+    alert("Quick Add with ISBN lookup is not connected yet. Use manual add for now.");
 });
 
 // Star rating click logic
@@ -128,5 +136,4 @@ document.querySelectorAll(".star-rating").forEach((ratingContainer) => {
     });
 });
 
-// Initialize count on page load
-updateBookCount();
+loadBooksFromDatabase();
