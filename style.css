@@ -23,6 +23,17 @@ body {
     letter-spacing: 1px;
 }
 
+#book-total {
+    border: 1px solid rgba(0, 255, 200, 0.2);
+    background: rgba(0, 0, 0, 0.25);
+    text-align: center;
+    justify-content: center;
+    color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+}
+
 /* BOOK LIST CONTAINER */
 #all-books {
     border: 1px solid rgba(0, 255, 200, 0.2);
@@ -72,6 +83,7 @@ body {
 
 /* FORM CONTAINERS */
 #add-books,
+#add-book-ISBN,
 #search-books {
     color: #cfe9f3;
     border: 1px solid rgba(0, 255, 200, 0.2);
@@ -106,7 +118,8 @@ label {
 /* INPUTS */
 #title-input,
 #author-input,
-#isbn-input,
+#quick-isbn-input,
+#manual-isbn-input,
 #genre-input,
 #description-area,
 #search-title,
@@ -119,12 +132,14 @@ label {
     background: rgba(255, 255, 255, 0.05);
     color: #e6f1ff;
     outline: none;
+    width: 100%;
 }
 
 /* INPUT FOCUS */
 #title-input:focus,
 #author-input:focus,
-#isbn-input:focus,
+#quick-isbn-input:focus,
+#manual-isbn-input:focus,
 #genre-input:focus,
 #description-area:focus,
 #search-title:focus,
@@ -142,7 +157,8 @@ label {
 }
 
 /* BUTTONS */
-#add-btn,
+#quick-add-btn,
+#manual-add-btn,
 #search-btn {
     grid-column: 1 / -1;
     padding: 12px;
@@ -155,13 +171,49 @@ label {
     transition: all 0.2s ease;
 }
 
-#add-btn:hover,
+#quick-add-btn:hover,
+#manual-add-btn:hover,
 #search-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 0 12px rgba(0, 255, 200, 0.4);
 }
 
-#add-btn:active,
+#quick-add-btn:active,
+#manual-add-btn:active,
 #search-btn:active {
     transform: scale(0.98);
+}
+
+/* STAR RATING */
+.star-rating {
+    display: flex;
+    gap: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+    padding: 8px 0;
+    flex-wrap: wrap;
+}
+
+.star {
+    color: rgba(255, 255, 255, 0.25);
+    transition: transform 0.15s ease, color 0.15s ease, text-shadow 0.15s ease;
+}
+
+.star:hover {
+    transform: scale(1.15);
+}
+
+.star.active {
+    color: #ffd166;
+    text-shadow: 0 0 10px rgba(255, 209, 102, 0.45);
+}
+
+/* BOOK RATING DISPLAY */
+.book-rating {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #ffd166;
+    letter-spacing: 3px;
 }
