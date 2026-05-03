@@ -4,7 +4,7 @@ use CMO;
 create table Users(
 user_id int auto_increment PRIMARY KEY,
 email varchar(100) not null UNIQUE,
-password_hash varchar(100) not null,
+password_hash varchar(255) not null,
 user_role enum('Student', 'Faculty', 'General', 'Admin') not null default 'General',
 full_name varchar(100) not null,
 created_at timestamp default current_timestamp,
@@ -12,11 +12,19 @@ is_active boolean default true);
 
 create table Books(
 book_id int auto_increment PRIMARY KEY,
-isbn varchar(100) not null unique,
+user_id int not null,
+isbn varchar(100) not null,
 title varchar(100) not null,
 author varchar(100) not null,
 category varchar(100) not null,
-is_available boolean default true);
+description TEXT NOT NULL,
+rating INT NOT NULL DEFAULT 0,
+is_available boolean default true,
+constraint fk_books_user
+    foreign key(user_id)
+    references Users(user_id)
+    on delete cascade
+);
 
 
 create table Borrowing(

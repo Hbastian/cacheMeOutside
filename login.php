@@ -18,34 +18,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     if ($user && password_verify($password, $user["password_hash"]))
     {
         $_SESSION["user"] = $user["email"];
+        $_SESSION["user_id"] = $user["user_id"];
         header("Location: index.php");
         exit();
     }
     else
     {
-        $error = "Invalid login";
+        $error = "Invalid email or password.";
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Login | Cache Me Outside</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-page">
 
-<h2>Login</h2>
+<div class="auth-shell">
+    <div class="auth-brand">
+        <p class="eyebrow">Welcome back</p>
+        <h1>Cache Me Outside</h1>
+        <p>Track your books, ratings, and favorites in one clean place.</p>
+    </div>
 
-<form method="POST">
-<input type="email" name="email" placeholder="Email" required>
-<input type="password" name="password" placeholder="Password" required>
-<button type="submit">Login</button>
-</form>
+    <div class="auth-card">
+        <h2>Login</h2>
+        <p class="auth-subtitle">Sign in to your library</p>
 
-<p><?php if(isset($error)) echo $error; ?></p>
+        <?php if(isset($error)): ?>
+            <div class="auth-error"><?php echo $error; ?></div>
+        <?php endif; ?>
 
-<a href="createProfile.php">Create Account</a>
+        <form method="POST">
+            <div class="auth-field">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="auth-field">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <button class="auth-btn" type="submit">Login</button>
+        </form>
+
+        <p class="auth-footer">
+            No account yet?
+            <a href="createProfile.php">Create one</a>
+        </p>
+    </div>
+</div>
 
 </body>
 </html>

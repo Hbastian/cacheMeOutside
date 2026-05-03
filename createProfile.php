@@ -18,30 +18,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }
     else
     {
-        $error = "User already exists";
+        $error = "That account already exists.";
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Create Account | Cache Me Outside</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-page">
 
-<h2>Create Account</h2>
+<div class="auth-shell">
+    <div class="auth-brand">
+        <p class="eyebrow">Start reading smarter</p>
+        <h1>Create Profile</h1>
+        <p>Build your own personal book cache and keep your collection organized.</p>
+    </div>
 
-<form method="POST">
-<input type="text" name="name" placeholder="Full Name" required>
-<input type="email" name="email" placeholder="Email" required>
-<input type="password" name="password" placeholder="Password" required>
-<button type="submit">Create</button>
-</form>
+    <div class="auth-card">
+        <h2>Create Account</h2>
+        <p class="auth-subtitle">Join Cache Me Outside</p>
 
-<p><?php if(isset($error)) echo $error; ?></p>
+        <?php if(isset($error)): ?>
+            <div class="auth-error"><?php echo $error; ?></div>
+        <?php endif; ?>
 
-<a href="login.php">Back to Login</a>
+        <form method="POST">
+            <div class="auth-field">
+                <label>Full Name</label>
+                <input type="text" name="name" placeholder="Your name" required>
+            </div>
+
+            <div class="auth-field">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="auth-field">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Create a password" required>
+            </div>
+
+            <button class="auth-btn" type="submit">Create Account</button>
+        </form>
+
+        <p class="auth-footer">
+            Already have an account?
+            <a href="login.php">Login</a>
+        </p>
+    </div>
+</div>
 
 </body>
 </html>
